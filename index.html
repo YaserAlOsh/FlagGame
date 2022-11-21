@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="0FTmQnSB6Ux94Zxj9gUWSgmQKkSwL6m66RIIXmp3Frg" />
+    <title>2048</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="./script.js" type="module"></script>
+    <link rel="icon" href="#">
+
+</head>
+<body>
+    <div class="grids">
+        <div id="game-board" class="grid">
+            <div id ="game-over">
+            <div id ="flag-completed"></div>
+            <div class="horizontal">
+                <div class="high-score-alert">New&nbsp;</div>
+                <p>Moves:</p>
+                <span class="score"></span>
+            </div>
+            <div class="low-points">You can do better next time</div>
+            <div class="good-points">Great Job!</div>
+            <p class="info">Enter or Click to play again.</div>
+        </div>
+        <div id="flag">
+            <div class="red grid"></div>
+            <div class="green grid"></div>
+            <div class="white grid"></div>
+            <div class="black grid"></div>
+        </div>
+    </div>
+    <div id ="shallow-flag-completed"></div>
+    <div class="top-items">
+        <div class="score-holder">
+            <p>Moves:</p>
+            <span id="score" class="score">0</span>
+        </div>
+        <div class="score-holder">
+            <p>Best: </p>
+            <span id="high-score" class="score">#</span>
+        </div>
+    </div>
+</body>
+</html>

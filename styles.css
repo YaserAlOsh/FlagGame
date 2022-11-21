@@ -1,0 +1,258 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+body{
+    background-color: #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#game-board {
+    --grid-horizontal: 4;
+    --grid-vert: 4;
+    --cell-size: 10vmin;
+    --cell-gap: 2vmin;
+    --cell-border-radius: 1vmin;
+    border-radius: 1vmin;
+
+    /*--tile-font-size: 4vmin;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-size), var(--cell-size));
+    grid-template-rows: repeat(var(--grid-size), var(--cell-size));
+    background-color: #CCC;
+    gap: var(--cell-gap);
+    border-radius: 1vmin;
+    padding: var(--cell-gap);
+    position: relative;*/
+}
+.grid{
+    --grid-horizontal: 4;
+    --grid-vert: 4;
+    /*--cell-size: 10vmin;
+    --cell-gap: 2vmin;*/
+    --cell-border-radius: 0;
+    --tile-font-size: 4vmin;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-horizontal), var(--cell-size));
+    grid-template-rows: repeat(var(--grid-vert), var(--cell-size));
+    background-color: #CCC;
+    gap: var(--cell-gap);
+    padding: var(--cell-gap);
+    position: relative;
+    /*--grid-horizontal-val: var(--grid-horizontal);
+    --grid-vert-val: var(--grid-vert);*/
+}
+.grids{
+    display:grid;
+    grid-gap: 1vw;
+    justify-items: center;
+}
+#flag{
+    /* UAE Flag has a width 2xheight
+       Red takes 1/4 of the width.
+       Each other color take 1/3 of the height.
+    */
+    --tile-count: 12;
+    --flag-width: 60vmin;
+    display: grid;
+    width: var(--flag-width);
+    height: calc(0.5 * var(--flag-width));
+}
+#flag .grid{
+    --cell-size: calc(var(--flag-width) / var(--tile-count));
+    --cell-gap: 0vmin;
+    --cell-border-radius: 0;
+    --tile-font-size: 0vmin;
+}
+.red.grid{
+    --grid-horizontal: calc(var(--tile-count) / 4);
+    --grid-vert: calc(var(--tile-count) / 2);
+}
+.green.grid,.white.grid,.black.grid{
+    --grid-horizontal: calc(3 * var(--tile-count) / 4);
+    --grid-vert: calc(var(--tile-count) / 6);
+}
+.red{
+    background-color: rgb(231, 191, 191);
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 4;
+}
+.green{
+    background-color: rgb(204, 238, 213);
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+.white{
+    background-color: rgb(141, 141, 141);
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+.black{
+    background-color: rgb(114, 114, 114);
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+@media only screen and (min-width: 768px){
+    #game-board{
+        --tile-font-size: 3em;
+    }
+}
+.cell {
+    
+    background-color: #AAA;
+    border-radius: var(--cell-border-radius);
+}
+
+.tile{
+    --x: 0;
+    --y: 0;
+    --background-lightness: 50%;
+    --text-lightness: 25%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: bisque;
+    font-size: var(--tile-font-size);
+    border-radius: var(--cell-border-radius);
+    top:  calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+    left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+    font-weight: bold;
+    /*background-color: hsl(50,75%,var(--background-lightness));*/
+    color: hsl(100,25%, var(--text-lightness));
+    animation: show 200ms ease-in-out;
+    transition: 150ms cubic-bezier(0.55, 0.09, 0.68, 0.53);
+}
+.tile .anim{
+    animation: bounce 100ms ease-in-out;
+    transition: 200ms;
+}
+
+@keyframes show{
+    0%{
+        opacity: 0;
+        transform: scale(0);
+    } 
+}
+@keyframes bounce{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.25);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+.horizontal{
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    align-items: center;   
+}
+
+
+#game-over{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+	align-items: center;
+    position: absolute;
+    background-color: rgb(233,233,233, .86);
+    width: 100%;
+    height: 100%;
+    animation: show 1000ms ease-in-out;
+    padding: 10%; 
+    font-size: 1.5em;
+    box-shadow: 3px 4px 13px 3px rgba(76,73,75, 50%);
+	z-index: 1;
+	border: 10px gray;
+}
+#game-over.active{
+	display: flex;
+}
+#game-over .score-holder{
+	position: relative;
+	margin: 0;
+	width:auto;
+	justify-content: center;
+	color: black;
+}
+
+.top-items{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    top: 0;
+    position: absolute;
+    margin: 10px;
+}
+.score-holder{
+    display: grid;
+    grid-template-columns: min-content auto;
+    align-items: center;
+    color: var(--color_black);
+    margin: 0 20px 0 20px;
+    width: fit-content;
+    padding: 0 0.5em 0 0.5em;
+    background: #e9e5e5;
+    border: solid var(--color_red);
+    border-width: 5px;
+    border-radius: 3px;
+}
+.score-holder .score{
+	margin: 0 20px 0 0;
+}
+.low-points{
+    display: none;
+    font-weight: bold;
+    font-size: 2em;
+    color: var( --color_red);
+}
+.good-points{
+    display: block;
+    font-weight: bold;
+    font-size: 2em;
+    color: var( --color_green);
+}
+.info{
+    font-size: 0.75em;
+    color: #393a3b;
+}
+
+#game-over .high-score-alert{
+    display: none;
+}
+#game-over .high-score-alert.active{
+    display: block;
+}
+
+:root{ 
+    --color_red: hsl(350, 85%, 42%);
+    --color_green: hsl(148, 100%, 26%);
+    --color_white: hsl(0, 0%, 100%);
+    --color_grey: hsl(0, 0%, 65%);
+    --color_black: hsl(0, 0%, 0%);
+    --color_red_text: hsl(345, 6%, 86%);
+    --color_green_text: hsl(147, 13%, 86%);
+    --color_white_text: hsl(0, 0%, 22%);
+    --color_grey_text: hsl(0, 0%, 0%);
+    --color_black_text: hsl(0, 0%, 100%);
+
+}
