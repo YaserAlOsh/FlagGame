@@ -55,7 +55,7 @@ function mapValueColor(val){
     //console.log(val+":"+idx)
     let color = flag_colors[idx]
     let light = light_percents[idx][getValueOrder(val)>=color_count ? 1:0]
-    console.log(color+":"+light)
+    //console.log(color+":"+light)
     //console.log(getComputedStyle(document.documentElement))
     let hls = toHSLObject(getComputedStyle(document.documentElement).getPropertyValue(color))
     hls.lightness = light
@@ -102,7 +102,7 @@ function getStrInsideParentheses(str){
 }
 
 flag_children.forEach(fg => {
-    console.log(fg)
+    //console.log(fg)
     let width = getComputedStyle(fg).getPropertyValue("--grid-horizontal")
     let height = getComputedStyle(fg).getPropertyValue("--grid-vert")
     width = parse(getStrInsideParentheses(width))
@@ -111,7 +111,7 @@ flag_children.forEach(fg => {
 });
 function mapValueToFlagGrid(val){
     //val = Math.log2(val)-1b  
-    console.log(getValueOrder(val)%flags_count)
+    //console.log(getValueOrder(val)%flags_count)
     return flag_grids[getValueOrder(val)%flags_count];
 }
 
@@ -323,7 +323,8 @@ function slideTiles(cells, res) {
                         let fg = mapValueToFlagGrid(lastValidCell.tile.value)
                         //let ftile = fg.getLastFilledTile()
                         //if (fg.currFills > 0) {
-                            
+                        console.log("Fill: "+cell.tile.value +" "+ lastValidCell.tile.value)
+                        console.log("Fill: "+mapValueColor(cell.tile.value + lastValidCell.tile.value))
                         if (fg !== undefined && cell.tile.value + lastValidCell.tile.value > fg['grid'].highestValue){
                             addNewTileToFlagGrid(fg,cell.tile.value + lastValidCell.tile.value)
                         }
