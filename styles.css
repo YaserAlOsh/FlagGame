@@ -195,13 +195,16 @@ body{
 }
 
 .top-items{
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     justify-content: center;
     align-content: center;
+    flex-direction: column;
     top: 0;
+    left: 0;
     position: absolute;
     margin: 10px;
+    gap: 10px;
 }
 .score-holder{
     display: grid;
